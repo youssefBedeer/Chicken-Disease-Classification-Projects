@@ -7,7 +7,7 @@ from datetime import datetime
 # -----------------------------
 # Logging Setup
 # -----------------------------
-base_log_folder = Path(os.path.join(os.path.dirname(os.getcwd()), "logs"))
+base_log_folder = Path(os.path.join(os.getcwd()), "logs")
 today_folder = datetime.now().strftime("%Y_%m_%d")
 log_folder = os.path.join(base_log_folder, today_folder)
 os.makedirs(log_folder, exist_ok=True)
@@ -46,3 +46,5 @@ class CustomException(Exception):
     def __str__(self):
         return self.error_message
 
+if __name__ == "__main__":
+    print(log_file_path)

@@ -1,0 +1,7 @@
+person:
+  name:
+    first_name: youssef 
+    last_name: bedeer 
+  age: 22
+
+artifacts_root: artifacts
