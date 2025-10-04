@@ -9,25 +9,22 @@ class DataIngestion:
         self.config = config 
     
     def download_file(self):
-        try:
-            if not os.path.exists(self.config.local_data_file):
-                file_name, headers = urlretrieve(
-                    url= self.config.source_url, 
-                    filename=self.config.local_data_file
-                )
-                logging.info(f"{file_name} download! with the following info: \n{headers}")
-            else:
-                logging.info(f"{file_name} already exist.")
-        except Exception as e:
-            raise CustomException(e)
+        if not os.path.exists(self.config.local_data_file):
+            file_name, headers = urlretrieve(
+                url= self.config.source_url, 
+                filename=self.config.local_data_file
+            )
+            logging.info(f"{file_name} download! with the following info: \n{headers}")
+        else:
+            logging.info(f"already exist.")
+
         
     def extract_zip_file(self):
         logging.info(f"extracting zip file: {self.config.local_data_file}....")
-        try:
-            unzip_dir = self.config.unzip_dir 
-            os.makedirs(unzip_dir, exist_ok=True)
-            with zipfile.ZipFile(self.config.local_data_file, "r") as zip_ref:
-                zip_ref.extractall(unzip_dir)
-            logging.info(f"file extracted to: {unzip_dir}")
-        except Exception as e:
-            raise CustomException(e)
+
+        unzip_dir = self.config.unzip_dir 
+        os.makedirs(unzip_dir, exist_ok=True)
+        
+        with zipfile.ZipFile(self.config.local_data_file, "r") as zip_ref:
+            zip_ref.extractall(unzip_dir)
+        logging.info(f"file extracted to: {unzip_dir}")
