@@ -4,7 +4,7 @@ from ensure import ensure_annotations
 from cnnClassifier import CustomException, logging
 import os
 from pathlib import Path
-
+import json
 
 @ensure_annotations
 def read_yaml(yaml_file_path:Path)-> ConfigBox:
@@ -40,3 +40,18 @@ def create_directories(list_of_directories:list):
             logging.info(f"folder created at '{path}'")
         else:
             logging.info(f"folder '{path}' already exist.")
+
+
+@ensure_annotations 
+def save_json(path:Path, data:dict):
+    with open(path, "w") as f:
+        json.dump(data, f, indent=4)
+
+
+@ensure_annotations 
+def load_json(path:Path) ->ConfigBox:
+    with open(path) as f:
+        content = json.laod(f)
+
+    logging.info(f"json file loaded succesfully from : {path}")
+    return ConfigBox(content)

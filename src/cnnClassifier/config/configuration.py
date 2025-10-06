@@ -6,7 +6,8 @@ from cnnClassifier import logging, CustomException
 from cnnClassifier.entity.config_entity import (DataIngestionConfig,
                                                 PrepareBaseModelConfig,
                                                 PrepareCallbacksConfig,
-                                                TrainingConfig)
+                                                TrainingConfig,
+                                                EvaluationConfig)
 
 
 
@@ -86,6 +87,18 @@ class ConfigurationManager:
             params_learning_rate = params.LEARNING_RATE 
         )
         return training_config
+    
+
+    @ensure_annotations 
+    def get_evaluation_config(self) -> EvaluationConfig:
+        eval_config = EvaluationConfig(
+            trained_model_path = Path(self.config.training.trained_model_path), 
+            training_data_dir = Path(self.config.training.training_data_dir), 
+            all_params = self.params, 
+            params_image_size = self.params.IMAGE_SIZE, 
+            params_batch_size = self.params.BATCH_SIZE,
+        )
+        return eval_config
         
 
 

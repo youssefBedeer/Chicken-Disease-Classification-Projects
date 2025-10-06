@@ -37,3 +37,12 @@ class TrainingConfig:
     params_batch_size:int 
     params_image_size:list 
     params_learning_rate:float 
+
+
+@dataclass(frozen=True)
+class EvaluationConfig:
+    trained_model_path:Path 
+    training_data_dir:Path 
+    all_params:dict 
+    params_image_size:list 
+    params_batch_size:int
