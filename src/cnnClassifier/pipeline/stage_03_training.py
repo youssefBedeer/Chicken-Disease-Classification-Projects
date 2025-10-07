@@ -1,6 +1,7 @@
 from cnnClassifier.config.configuration import ConfigurationManager
 from cnnClassifier.components.prepare_callbacks import PrepareCallbacks
 from cnnClassifier.components.training import Training
+from cnnClassifier import logging, CustomException
 
 class TrainingPipeline:
     def main(self):
@@ -16,3 +17,14 @@ class TrainingPipeline:
         training.get_base_model()
         training.train_valid_generator()
         training.train(callback_list = callback_list)
+
+if __name__ == "__main__":
+    STAGE_NAME = "train the model"
+    try:
+        logging.info(f"\n{'>'*20} stage {STAGE_NAME} started {'<'*20}\n")
+        training = TrainingPipeline() 
+        training.main()
+        logging.info(f"\n{'>'*20} stage {STAGE_NAME} completed {'<'*20}\n")
+
+    except Exception as e:
+        raise CustomException(e)

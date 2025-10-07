@@ -5,6 +5,7 @@ from cnnClassifier import CustomException, logging
 import os
 from pathlib import Path
 import json
+import base64
 
 @ensure_annotations
 def read_yaml(yaml_file_path:Path)-> ConfigBox:
@@ -55,3 +56,15 @@ def load_json(path:Path) ->ConfigBox:
 
     logging.info(f"json file loaded succesfully from : {path}")
     return ConfigBox(content)
+
+
+def decodeImage(imgstring, fileName):
+    imgdata = base64.b64decode(imgstring)
+    with open(fileName, 'wb') as f:
+        f.write(imgdata)
+        f.close()
+
+
+def encodeImageIntoBase64(croppedImagePath):
+    with open(croppedImagePath, "rb") as f:
+        return base64.b64encode(f.read())
